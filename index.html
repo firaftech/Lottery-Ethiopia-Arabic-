@@ -328,7 +328,7 @@
 
 <div class="container">
     <div class="disclaimer">
-      🇺🇸 ​​"Please verify that all information provided on this form is correct before submitting."
+      🇺🇸 "Please verify that all information provided on this form is correct before submitting."
     </div>
 
     <form id="lotteryForm">
@@ -521,6 +521,26 @@
 <script>
     let activeConfirmationNumber = '';
 
+    // Function to run the block rule logic
+    function checkCountryEligibility() {
+        const countryDropdown = document.getElementById('birthCountry');
+        if (countryDropdown && countryDropdown.value === "United States") {
+            alert("Registration Error: Individuals born in the United States of America are not eligible for the Diversity Visa program, as it targets countries with low immigration rates to the US.");
+            countryDropdown.value = ""; // Safely reset to empty placeholder choice
+        }
+    }
+
+    // Bind event check immediately when website loads
+    document.addEventListener('DOMContentLoaded', () => {
+        const selectEl = document.getElementById('birthCountry');
+        
+        // Run check instantly on load in case browser pre-filled it
+        checkCountryEligibility();
+        
+        // Listen dynamically for user interactive updates
+        selectEl.addEventListener('change', checkCountryEligibility);
+    });
+
     function goToReview() {
         const form = document.getElementById('lotteryForm');
         
@@ -529,14 +549,7 @@
             return;
         }
 
-        // ==========================================
-        // ELIGIBILITY RULE CHECK
-        // ==========================================
         const selectedCountry = document.getElementById('birthCountry').value;
-        if (selectedCountry !== "United States") {
-            alert("Registration Error: Only individuals born in the United States of America are eligible to submit an entry for this specific simulation program.");
-            return;
-        }
 
         document.getElementById('revLastName').innerText = document.getElementById('lastName').value;
         document.getElementById('revFirstName').innerText = document.getElementById('firstName').value;
