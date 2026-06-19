@@ -529,7 +529,9 @@
             return;
         }
 
-        // Updated Eligibility logic: Only accept United States
+        // ==========================================
+        // ELIGIBILITY RULE CHECK
+        // ==========================================
         const selectedCountry = document.getElementById('birthCountry').value;
         if (selectedCountry !== "United States") {
             alert("Registration Error: Only individuals born in the United States of America are eligible to submit an entry for this specific simulation program.");
@@ -575,7 +577,6 @@
         window.scrollTo(0, 0);
     }
 
-    // Fixed logic mistake from earlier: chars template sequence generated 19 loop lengths instead of 16 dashes formatting
     function generate16DigitLottery() {
         let result = '';
         const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
